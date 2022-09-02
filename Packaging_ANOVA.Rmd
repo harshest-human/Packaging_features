@@ -1,0 +1,57 @@
+---
+title: "Anova modeling of a packaging material"
+author: "Harsh Sahu"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+
+## Introduction
+This is an R Markdown document for the statistical analysis performed under R-studio (version:2022.07.1+554).
+This project shows the results of ANOVA modeling and the graphical representation of the packaging material data.
+
+```{r library, warning=FALSE, results='hide', message=FALSE}
+#######Library##############
+getwd()
+library(readxl)
+library(readr)
+library(ggplot2)
+library(tidyr)
+library(tidyverse)
+library(ggpubr)
+library(purrr)
+```
+
+
+
+### Importing the data frame
+
+```{r data}
+Packaging_data <- read_excel("Packaging.xlsx")
+```
+
+
+
+### Data processing (Cleaning & Structuring)
+
+```{r data processing}
+######strings#######
+Packaging_data$Film_thickness <- as.factor(Packaging_data$Film_thickness)
+Packaging_data$Diameter <- as.factor(Packaging_data$Diameter)
+Packaging_data$Air_velocity <- as.factor(Packaging_data$Air_velocity)
+```
+
+
+
+### Data visualization
+
+```{r data visualization}
+######ggplot2_graph#########
+ggplot(Packaging_data, aes(x=Diameter, y=K_value, colour=Temperature, shape=Air_velocity))+        
+  geom_point(size = 4)+
+  facet_grid(cols = vars(Film_thickness))+
+  theme(axis.text.x = element_text(angle=90))+
+  ggtitle("Film_thickness")+
+  scale_color_gradient(low="light green", high="red")+
+  theme(plot.title = element_text(hjust = 0.5))
+```
