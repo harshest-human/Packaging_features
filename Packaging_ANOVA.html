@@ -389,6 +389,50 @@ library(purrr)</code></pre>
 <h3>Importing the data frame</h3>
 <pre class="r"><code>Packaging_data &lt;- read_excel(&quot;Packaging.xlsx&quot;)</code></pre>
 </div>
+<div id="anova-modeling" class="section level3">
+<h3>ANOVA-Modeling</h3>
+<pre class="r"><code>#####ANOVA-Model &amp; Interactions#########
+anova(aov(K_value~Film_thickness*Diameter*Air_velocity*Temperature, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##                                                  Df Sum Sq Mean Sq  F value
+## Film_thickness                                    1 1.7703  1.7703 113.4487
+## Diameter                                          1 9.2223  9.2223 591.0154
+## Air_velocity                                      1 0.4903  0.4903  31.4226
+## Temperature                                       1 2.7016  2.7016 173.1351
+## Film_thickness:Diameter                           1 0.2378  0.2378  15.2410
+## Film_thickness:Air_velocity                       1 0.0030  0.0030   0.1896
+## Diameter:Air_velocity                             1 0.0586  0.0586   3.7562
+## Film_thickness:Temperature                        1 0.0115  0.0115   0.7376
+## Diameter:Temperature                              1 0.0453  0.0453   2.9019
+## Air_velocity:Temperature                          1 0.5775  0.5775  37.0119
+## Film_thickness:Diameter:Air_velocity              1 0.0009  0.0009   0.0604
+## Film_thickness:Diameter:Temperature               1 0.0008  0.0008   0.0527
+## Film_thickness:Air_velocity:Temperature           1 0.0124  0.0124   0.7955
+## Diameter:Air_velocity:Temperature                 1 0.0101  0.0101   0.6454
+## Film_thickness:Diameter:Air_velocity:Temperature  1 0.0003  0.0003   0.0198
+## Residuals                                        29 0.4525  0.0156         
+##                                                     Pr(&gt;F)    
+## Film_thickness                                   1.548e-11 ***
+## Diameter                                         &lt; 2.2e-16 ***
+## Air_velocity                                     4.723e-06 ***
+## Temperature                                      9.360e-14 ***
+## Film_thickness:Diameter                          0.0005189 ***
+## Film_thickness:Air_velocity                      0.6664632    
+## Diameter:Air_velocity                            0.0624019 .  
+## Film_thickness:Temperature                       0.3974825    
+## Diameter:Temperature                             0.0991692 .  
+## Air_velocity:Temperature                         1.266e-06 ***
+## Film_thickness:Diameter:Air_velocity             0.8076696    
+## Film_thickness:Diameter:Temperature              0.8200024    
+## Film_thickness:Air_velocity:Temperature          0.3797744    
+## Diameter:Air_velocity:Temperature                0.4282897    
+## Film_thickness:Diameter:Air_velocity:Temperature 0.8890162    
+## Residuals                                                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
 <div id="data-processing-cleaning-structuring" class="section level3">
 <h3>Data processing (Cleaning &amp; Structuring)</h3>
 <pre class="r"><code>######strings#######

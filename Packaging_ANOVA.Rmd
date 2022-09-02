@@ -23,13 +23,19 @@ library(purrr)
 ```
 
 
-
 ### Importing the data frame
 
 ```{r data}
 Packaging_data <- read_excel("Packaging.xlsx")
 ```
 
+
+### ANOVA-Modeling
+
+```{r data modeling}
+#####ANOVA-Model & Interactions#########
+anova(aov(K_value~Film_thickness*Diameter*Air_velocity*Temperature, data=Packaging_data))
+```
 
 
 ### Data processing (Cleaning & Structuring)
@@ -40,7 +46,6 @@ Packaging_data$Film_thickness <- as.factor(Packaging_data$Film_thickness)
 Packaging_data$Diameter <- as.factor(Packaging_data$Diameter)
 Packaging_data$Air_velocity <- as.factor(Packaging_data$Air_velocity)
 ```
-
 
 
 ### Data visualization
