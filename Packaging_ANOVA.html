@@ -11,7 +11,7 @@
 
 <meta name="author" content="Harsh Sahu" />
 
-<meta name="date" content="2022-09-02" />
+<meta name="date" content="2022-09-05" />
 
 <title>Anova modeling of a packaging material</title>
 
@@ -365,7 +365,7 @@ pre code {
 
 <h1 class="title toc-ignore">Anova modeling of a packaging material</h1>
 <h4 class="author">Harsh Sahu</h4>
-<h4 class="date">2022-09-02</h4>
+<h4 class="date">2022-09-05</h4>
 
 </div>
 
@@ -391,47 +391,217 @@ library(purrr)</code></pre>
 </div>
 <div id="anova-modeling" class="section level3">
 <h3>ANOVA-Modeling</h3>
-<pre class="r"><code>#####ANOVA-Model &amp; Interactions#########
-anova(aov(K_value~Film_thickness*Diameter*Air_velocity*Temperature, data=Packaging_data))</code></pre>
+<pre class="r"><code>#####Main-effect-ANOVA-Modeling#########
+anova(aov(K_value~Film_thickness, data=Packaging_data))</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: K_value
-##                                                  Df Sum Sq Mean Sq  F value
-## Film_thickness                                    1 1.7703  1.7703 113.4487
-## Diameter                                          1 9.2223  9.2223 591.0154
-## Air_velocity                                      1 0.4903  0.4903  31.4226
-## Temperature                                       1 2.7016  2.7016 173.1351
-## Film_thickness:Diameter                           1 0.2378  0.2378  15.2410
-## Film_thickness:Air_velocity                       1 0.0030  0.0030   0.1896
-## Diameter:Air_velocity                             1 0.0586  0.0586   3.7562
-## Film_thickness:Temperature                        1 0.0115  0.0115   0.7376
-## Diameter:Temperature                              1 0.0453  0.0453   2.9019
-## Air_velocity:Temperature                          1 0.5775  0.5775  37.0119
-## Film_thickness:Diameter:Air_velocity              1 0.0009  0.0009   0.0604
-## Film_thickness:Diameter:Temperature               1 0.0008  0.0008   0.0527
-## Film_thickness:Air_velocity:Temperature           1 0.0124  0.0124   0.7955
-## Diameter:Air_velocity:Temperature                 1 0.0101  0.0101   0.6454
-## Film_thickness:Diameter:Air_velocity:Temperature  1 0.0003  0.0003   0.0198
-## Residuals                                        29 0.4525  0.0156         
-##                                                     Pr(&gt;F)    
-## Film_thickness                                   1.548e-11 ***
-## Diameter                                         &lt; 2.2e-16 ***
-## Air_velocity                                     4.723e-06 ***
-## Temperature                                      9.360e-14 ***
-## Film_thickness:Diameter                          0.0005189 ***
-## Film_thickness:Air_velocity                      0.6664632    
-## Diameter:Air_velocity                            0.0624019 .  
-## Film_thickness:Temperature                       0.3974825    
-## Diameter:Temperature                             0.0991692 .  
-## Air_velocity:Temperature                         1.266e-06 ***
-## Film_thickness:Diameter:Air_velocity             0.8076696    
-## Film_thickness:Diameter:Temperature              0.8200024    
-## Film_thickness:Air_velocity:Temperature          0.3797744    
-## Diameter:Air_velocity:Temperature                0.4282897    
-## Film_thickness:Diameter:Air_velocity:Temperature 0.8890162    
-## Residuals                                                     
+##                Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## Film_thickness  1  1.7703 1.77026  5.5061 0.02363 *
+## Residuals      43 13.8250 0.32151                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(aov(K_value~Diameter, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Diameter   1 10.2491 10.2491  82.434 1.488e-11 ***
+## Residuals 43  5.3462  0.1243                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(aov(K_value~Air_velocity, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##              Df  Sum Sq Mean Sq F value Pr(&gt;F)
+## Air_velocity  1  0.4903 0.49032  1.3958 0.2439
+## Residuals    43 15.1049 0.35128</code></pre>
+<pre class="r"><code>anova(aov(K_value~Temperature, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##             Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
+## Temperature  1  2.8292 2.82922  9.5297 0.003532 **
+## Residuals   43 12.7660 0.29688                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>#####Interaction-effect-ANOVA-Modeling#########
+anova(aov(K_value~Film_thickness*Diameter, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##                         Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Film_thickness           1 1.7703  1.7703 16.6282  0.000204 ***
+## Diameter                 1 9.2223  9.2223 86.6255 1.155e-11 ***
+## Film_thickness:Diameter  1 0.2378  0.2378  2.2339  0.142672    
+## Residuals               41 4.3649  0.1065                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(aov(K_value~Film_thickness*Air_velocity, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##                             Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## Film_thickness               1  1.7703 1.77026  5.4442 0.02462 *
+## Air_velocity                 1  0.4903 0.49032  1.5079 0.22646  
+## Film_thickness:Air_velocity  1  0.0030 0.00296  0.0091 0.92447  
+## Residuals                   41 13.3317 0.32516                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>anova(aov(K_value~Film_thickness*Temperature, data=Packaging_data))</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: K_value
+##                            Df  Sum Sq Mean Sq F value  Pr(&gt;F)   
+## Film_thickness              1  1.7703 1.77026  6.6081 0.01388 * 
+## Temperature                 1  2.8292 2.82922 10.5610 0.00231 **
+## Film_thickness:Temperature  1  0.0122 0.01217  0.0454 0.83231   
+## Residuals                  41 10.9836 0.26789                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="regression-modeling" class="section level3">
+<h3>Regression-Modeling</h3>
+<pre class="r"><code>#####Main-effect-Regression-Modeling#########
+summary(lm(K_value~Film_thickness, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Film_thickness, data = Packaging_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.11501 -0.40880  0.01497  0.31752  1.16680 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       3.8614     0.5245   7.362 3.86e-09 ***
+## Film_thickness -485.8345   207.0463  -2.347   0.0236 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.567 on 43 degrees of freedom
+## Multiple R-squared:  0.1135, Adjusted R-squared:  0.0929 
+## F-statistic: 5.506 on 1 and 43 DF,  p-value: 0.02363</code></pre>
+<pre class="r"><code>summary(lm(K_value~Diameter, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Diameter, data = Packaging_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5654 -0.2565 -0.0450  0.2358  0.8879 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   4.9549     0.2596  19.088  &lt; 2e-16 ***
+## Diameter    -32.0801     3.5333  -9.079 1.49e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3526 on 43 degrees of freedom
+## Multiple R-squared:  0.6572, Adjusted R-squared:  0.6492 
+## F-statistic: 82.43 on 1 and 43 DF,  p-value: 1.488e-11</code></pre>
+<pre class="r"><code>summary(lm(K_value~Air_velocity, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Air_velocity, data = Packaging_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.93872 -0.46075 -0.02307  0.37426  1.23154 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.49580    0.15540  16.061   &lt;2e-16 ***
+## Air_velocity  0.01775    0.01502   1.181    0.244    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5927 on 43 degrees of freedom
+## Multiple R-squared:  0.03144,    Adjusted R-squared:  0.008916 
+## F-statistic: 1.396 on 1 and 43 DF,  p-value: 0.2439</code></pre>
+<pre class="r"><code>summary(lm(K_value~Temperature, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Temperature, data = Packaging_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.80848 -0.45480 -0.02637  0.47509  1.12707 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -7.99659    3.44875  -2.319  0.02523 * 
+## Temperature  0.03685    0.01194   3.087  0.00353 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5449 on 43 degrees of freedom
+## Multiple R-squared:  0.1814, Adjusted R-squared:  0.1624 
+## F-statistic:  9.53 on 1 and 43 DF,  p-value: 0.003532</code></pre>
+<pre class="r"><code>#####Interaction-effect-Regression-Modeling#########
+summary(lm(K_value~Film_thickness*Diameter, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Film_thickness * Diameter, data = Packaging_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.55170 -0.24622 -0.04664  0.27440  0.67358 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 7.676      1.398   5.493 2.27e-06 ***
+## Film_thickness          -1132.961    558.148  -2.030  0.04889 *  
+## Diameter                  -59.326     19.386  -3.060  0.00389 ** 
+## Film_thickness:Diameter 11458.629   7666.606   1.495  0.14267    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3263 on 41 degrees of freedom
+## Multiple R-squared:  0.7201, Adjusted R-squared:  0.6996 
+## F-statistic: 35.16 on 3 and 41 DF,  p-value: 2.051e-11</code></pre>
+<pre class="r"><code>summary(lm(K_value~Film_thickness*Air_velocity, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Film_thickness * Air_velocity, data = Packaging_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.09543 -0.42270  0.04733  0.35287  0.97557 
+## 
+## Coefficients:
+##                               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                    3.63854    0.92768   3.922 0.000327 ***
+## Film_thickness              -457.09663  366.22040  -1.248 0.219059    
+## Air_velocity                   0.02619    0.08968   0.292 0.771722    
+## Film_thickness:Air_velocity   -3.37702   35.40234  -0.095 0.924470    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5702 on 41 degrees of freedom
+## Multiple R-squared:  0.1451, Adjusted R-squared:  0.08259 
+## F-statistic:  2.32 on 3 and 41 DF,  p-value: 0.08942</code></pre>
+<pre class="r"><code>summary(lm(K_value~Film_thickness*Temperature, data=Packaging_data))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = K_value ~ Film_thickness * Temperature, data = Packaging_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.94457 -0.46502  0.04274  0.38058  0.87685 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)                 -11.05592   20.32728  -0.544    0.589
+## Film_thickness             1223.73269 8024.62207   0.152    0.880
+## Temperature                   0.05165    0.07036   0.734    0.467
+## Film_thickness:Temperature   -5.91930   27.77719  -0.213    0.832
+## 
+## Residual standard error: 0.5176 on 41 degrees of freedom
+## Multiple R-squared:  0.2957, Adjusted R-squared:  0.2442 
+## F-statistic: 5.738 on 3 and 41 DF,  p-value: 0.002254</code></pre>
 </div>
 <div id="data-processing-cleaning-structuring" class="section level3">
 <h3>Data processing (Cleaning &amp; Structuring)</h3>
