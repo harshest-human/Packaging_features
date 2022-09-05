@@ -32,9 +32,17 @@ Packaging_data <- read_excel("Packaging.xlsx")
 
 ### ANOVA-Modeling
 
-```{r data modeling}
+```{r ANOVA modeling}
 #####ANOVA-Model & Interactions#########
 anova(aov(K_value~Film_thickness*Diameter*Air_velocity*Temperature, data=Packaging_data))
+```
+
+
+### Regression-Modeling
+
+```{r regression modeling}
+#####Regression-Model & Interactions#########
+summary(lm(K_value~Film_thickness*Diameter*Air_velocity*Temperature, data=Packaging_data))
 ```
 
 
