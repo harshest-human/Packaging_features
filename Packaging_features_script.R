@@ -22,6 +22,9 @@ anova(aov(K_value~Temperature, data=Packaging_data))
 anova(aov(K_value~Film_thickness*Diameter, data=Packaging_data))
 anova(aov(K_value~Film_thickness*Air_velocity, data=Packaging_data))
 anova(aov(K_value~Film_thickness*Temperature, data=Packaging_data))
+anova(aov(K_value~Diameter*Temperature, data=Packaging_data))
+anova(aov(K_value~Diameter*Air_velocity, data=Packaging_data))
+anova(aov(K_value~Air_velocity*Temperature, data=Packaging_data))
 
 #####Main-effect-Regression-Modeling#########
 summary(lm(K_value~Film_thickness, data=Packaging_data))
@@ -33,6 +36,9 @@ summary(lm(K_value~Temperature, data=Packaging_data))
 summary(lm(K_value~Film_thickness*Diameter, data=Packaging_data))
 summary(lm(K_value~Film_thickness*Air_velocity, data=Packaging_data))
 summary(lm(K_value~Film_thickness*Temperature, data=Packaging_data))
+summary(lm(K_value~Diameter*Temperature, data=Packaging_data))
+summary(lm(K_value~Diameter*Air_velocity, data=Packaging_data))
+summary(lm(K_value~Air_velocity*Temperature, data=Packaging_data))
 
 ######strings#######
 Packaging_data$Film_thickness <- as.factor(Packaging_data$Film_thickness)
